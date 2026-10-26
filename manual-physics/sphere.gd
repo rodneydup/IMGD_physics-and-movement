@@ -1,7 +1,8 @@
 class_name Sphere extends MeshInstance3D
 
 var mass = 1
-var vel = Vector3(0,0,0)
+var velocity = Vector3(0,0,0)
+var acceleration = Vector3(0,0,0)
 
 func _init(_mass = 1, _position = Vector3(0,0,0), _color:Color = Color("white"), _size = 1):
 	mesh = SphereMesh.new()
@@ -12,4 +13,3 @@ func _init(_mass = 1, _position = Vector3(0,0,0), _color:Color = Color("white"),
 	material_override.roughness = 0.4
 	mass = _mass
 	position = _position
-	

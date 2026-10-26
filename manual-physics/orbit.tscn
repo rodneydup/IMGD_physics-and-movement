@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://duha3y8c8m7e2"]
+
+[ext_resource type="Script" uid="uid://ge0akwgq3q44" path="res://orbit.gd" id="1_bxqu7"]
+
+[sub_resource type="Environment" id="Environment_v4a7q"]
+background_energy_multiplier = 0.0
+ambient_light_source = 2
+ambient_light_color = Color(1, 0, 0.8833332, 1)
+ambient_light_energy = 1.4
+fog_mode = 1
+fog_light_color = Color(0.1445, 0.154275, 0.17, 1)
+fog_light_energy = 0.95
+fog_density = 1.0
+fog_depth_begin = 0.0
+fog_depth_end = 543.2
+
+[node name="orbit" type="Node3D" unique_id=595936818]
+script = ExtResource("1_bxqu7")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=569146122]
+transform = Transform3D(1, 0, 0, 0, 0.8457596, 0.53356427, 0, -0.53356427, 0.8457596, 0, 2.9670837, 5.193868)
+fov = 70.4
+size = 0.001
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1862364738]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.307257, 22.942696, -15.583141)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=64597523]
+environment = SubResource("Environment_v4a7q")
