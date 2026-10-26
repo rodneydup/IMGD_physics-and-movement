@@ -2,6 +2,7 @@ extends Node3D
 
 var spheres = [0]
 var num = 100
+var gravity = 10
 
 func _ready():
 	#add_child(Sphere.new())
@@ -13,7 +14,13 @@ func _ready():
 		add_child(i)
 
 func _process(delta):
-	pass
+	for i in range(0, num):
+		for j in range(i+1,num):
+			var r = spheres[i].position - spheres[j].position
+			var rhat = r.normalize()
+			var distsqr = r.dot(r)
+			
+			
 
 func r(min, max):
 	return randf_range(min, max)
