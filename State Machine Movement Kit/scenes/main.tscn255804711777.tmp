@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://deus5f3qfk3x"]
+
+[ext_resource type="PackedScene" uid="uid://b55rclp3t4moe" path="res://scenes/player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://b4hcqw8uoakoy" path="res://scripts/hud.gd" id="2_hud"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_s260f"]
+noise_type = 0
+frequency = 0.0353
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mp12p"]
+noise = SubResource("FastNoiseLite_s260f")
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_edq3a"]
+orm_texture = SubResource("NoiseTexture2D_mp12p")
+
+[sub_resource type="BoxMesh" id="BoxMesh_floor"]
+material = SubResource("ORMMaterial3D_edq3a")
+size = Vector3(20, 1, 20)
+
+[node name="Main" type="Node3D" unique_id=1729759086]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1013436874]
+transform = Transform3D(-0.93358046, -0.18990606, 0.30391324, 0, 0.8480481, 0.52991927, -0.35836792, 0.49472228, -0.7917211, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=621889857]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=286588404]
+shape = SubResource("BoxShape3D_floor")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1601856715]
+mesh = SubResource("BoxMesh_floor")
+
+[node name="Player" parent="." unique_id=1021718871 instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=468278484]
+
+[node name="StateLabel" type="Label" parent="HUD" unique_id=1049521143]
+script = ExtResource("2_hud")

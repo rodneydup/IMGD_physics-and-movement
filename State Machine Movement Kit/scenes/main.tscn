@@ -1,0 +1,142 @@
+[gd_scene format=3 uid="uid://deus5f3qfk3x"]
+
+[ext_resource type="PackedScene" uid="uid://b55rclp3t4moe" path="res://scenes/player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://b4hcqw8uoakoy" path="res://scripts/hud.gd" id="2_hud"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
+size = Vector3(50, 1, 50)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_sugp2"]
+noise_type = 3
+frequency = 0.1664
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0wfyh"]
+noise = SubResource("FastNoiseLite_sugp2")
+
+[sub_resource type="Gradient" id="Gradient_tefeu"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tbgi4"]
+noise_type = 2
+frequency = 0.0197
+cellular_distance_function = 1
+domain_warp_enabled = true
+domain_warp_amplitude = 29.18
+domain_warp_frequency = 0.29
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jyhfs"]
+noise = SubResource("FastNoiseLite_tbgi4")
+color_ramp = SubResource("Gradient_tefeu")
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_edq3a"]
+resource_local_to_scene = true
+albedo_color = Color(0.71, 0.71, 0.71, 1)
+albedo_texture = SubResource("NoiseTexture2D_0wfyh")
+orm_texture = SubResource("NoiseTexture2D_jyhfs")
+rim_enabled = true
+refraction_scale = -1.0
+refraction_texture_channel = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_floor"]
+material = SubResource("ORMMaterial3D_edq3a")
+size = Vector3(50, 1, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sugp2"]
+material = SubResource("ORMMaterial3D_edq3a")
+size = Vector3(5.5700912, 1.4848633, 4.6157227)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jyhfs"]
+size = Vector3(5.5700912, 1.4848633, 4.6157227)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0wfyh"]
+size = Vector3(1.6397705, 9.414124, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0wfyh"]
+material = SubResource("ORMMaterial3D_edq3a")
+size = Vector3(1.6397705, 9.414124, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tbgi4"]
+material = SubResource("ORMMaterial3D_edq3a")
+size = Vector3(1.6397705, 10.1284485, 5.3248596)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tefeu"]
+size = Vector3(1.6397705, 10.1284485, 5.3248596)
+
+[node name="Main" type="Node3D" unique_id=1729759086]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1013436874]
+transform = Transform3D(-0.93358046, -0.18990606, 0.30391324, 0, 0.8480481, 0.52991927, -0.35836792, 0.49472228, -0.7917211, 0, 0, 0)
+light_specular = 0.135
+shadow_enabled = true
+
+[node name="Player" parent="." unique_id=1021718871 instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=468278484]
+
+[node name="StateLabel" type="Label" parent="HUD" unique_id=1049521143]
+script = ExtResource("2_hud")
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=621889857]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=286588404]
+shape = SubResource("BoxShape3D_floor")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1601856715]
+transform = Transform3D(0.9999993, 0, 0, 0, 0.9999993, 0, 0, 0, 0.9999993, 0, 0, 0)
+mesh = SubResource("BoxMesh_floor")
+
+[node name="Platform" type="StaticBody3D" parent="." unique_id=613773784]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0499816, 0)
+collision_layer = 3
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform" unique_id=406509000]
+transform = Transform3D(0.9999993, 0, 0, 0, 0.9999993, 0, 0, 0, 0.9999993, 21.33021, 0.37160134, -10.801984)
+mesh = SubResource("BoxMesh_sugp2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform" unique_id=681530470]
+transform = Transform3D(0.9999993, 0, 0, 0, 0.9999993, 0, 0, 0, 0.9999993, 21.33021, 0.37160134, -10.801984)
+shape = SubResource("BoxShape3D_jyhfs")
+
+[node name="Platform2" type="StaticBody3D" parent="." unique_id=341138714]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0499816, 8.46719)
+collision_layer = 3
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform2" unique_id=1488682185]
+transform = Transform3D(0.9999993, 0, 0, 0, 0.9999993, 0, 0, 0, 0.9999993, 21.33021, 0.37160134, -10.801984)
+mesh = SubResource("BoxMesh_sugp2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform2" unique_id=235204378]
+transform = Transform3D(0.9999993, 0, 0, 0, 0.9999993, 0, 0, 0, 0.9999993, 21.33021, 0.37160134, -10.801984)
+shape = SubResource("BoxShape3D_jyhfs")
+
+[node name="Wall" type="StaticBody3D" parent="." unique_id=1975032275]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall" unique_id=580843415]
+transform = Transform3D(0.9999993, 0, 0, 0, 0.9999993, 0, 0, 0, 0.9999993, 24.180098, 4.207059, 0)
+shape = SubResource("BoxShape3D_0wfyh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall" unique_id=1036720295]
+transform = Transform3D(0.9999993, 0, 0, 0, 0.9999993, 0, 0, 0, 0.9999993, 24.180098, 4.207059, 0)
+mesh = SubResource("BoxMesh_0wfyh")
+
+[node name="Ramp" type="StaticBody3D" parent="." unique_id=1040647167]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+collision_layer = 3
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ramp" unique_id=269480545]
+transform = Transform3D(-1.9367246e-08, 3.9186638e-08, 0.9999993, 0.8964857, 0.44307092, 0, -0.4430709, 0.89648575, -4.3711356e-08, 21.207575, 1.6854482, -17.28809)
+mesh = SubResource("BoxMesh_tbgi4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp" unique_id=1504328193]
+transform = Transform3D(-1.9367246e-08, 3.9186638e-08, 0.9999993, 0.8964857, 0.44307092, 0, -0.4430709, 0.89648575, -4.3711356e-08, 21.207575, 1.6854482, -17.28809)
+shape = SubResource("BoxShape3D_tefeu")

@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://ml328jei5sg4"]
+
+[ext_resource type="Script" uid="uid://d2g187qn85s3c" path="res://multi_mesh_instance_3d.gd" id="1_t0anb"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_v4a7q"]
+radius = 0.2
+height = 0.4
+
+[sub_resource type="MultiMesh" id="MultiMesh_rdnny"]
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = SubResource("SphereMesh_v4a7q")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ks68u"]
+albedo_color = Color(1, 0, 0.3333335, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_rdnny"]
+radius = 5.0
+height = 10.0
+
+[node name="Node3D" type="Node3D" unique_id=399350879]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=988829818]
+transform = Transform3D(-0.98657215, 0.0014252695, -0.16331972, 0, 0.9999619, 0.008726535, 0.16332594, 0.008609356, -0.9865346, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="." unique_id=702839762]
+multimesh = SubResource("MultiMesh_rdnny")
+script = ExtResource("1_t0anb")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=225161353]
+transform = Transform3D(0.22207037, 0, -0.97503066, 0, 1, 0, 0.97503066, 0, 0.22207037, -1.564, 0, 1.6)
+
+[node name="sphere" type="MeshInstance3D" parent="." unique_id=747158882]
+mesh = SubResource("SphereMesh_v4a7q")
+surface_material_override/0 = SubResource("StandardMaterial3D_ks68u")
+
+[node name="surface" type="MeshInstance3D" parent="." unique_id=35551293]
+mesh = SubResource("SphereMesh_rdnny")
