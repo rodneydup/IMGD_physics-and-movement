@@ -38,10 +38,19 @@ func _ready() -> void:
 
 	# Whenever the state machine changes state, re-read the label.
 	state_machine.state_changed.connect(_on_state_changed)
+	# Also refresh when the jump budget changes. A mid-air double-jump fires
+	# this even though the state stays "air" (no state_changed is emitted).
+	player.jumps_changed.connect(_on_jumps_changed)
 
 
 # Signal callback: fires whenever the state machine changes state.
 func _on_state_changed(_old_name: StringName, _new_name: StringName) -> void:
+	_update()
+
+
+# Signal callback: fires whenever the jump budget changes (a jump is used, or
+# the budget resets on landing). A mid-air double-jump only triggers this.
+func _on_jumps_changed(_jumps_left: int) -> void:
 	_update()
 
 

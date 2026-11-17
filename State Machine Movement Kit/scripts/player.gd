@@ -21,6 +21,13 @@ class_name Player
 extends CharacterBody3D
 
 
+## Fired whenever the double-jump budget changes (a jump is used, or the
+## budget is reset on landing). The HUD listens to this so it stays in sync
+## even for mid-air jumps that do NOT cause a state change (e.g. a double
+## jump while already in the Air state).
+signal jumps_changed(jumps_left: int)
+
+
 ## ----------------------------------------------------------------------------
 ##  TUNING VALUES  (edit these in the Inspector to change feel)
 ## ----------------------------------------------------------------------------
@@ -211,11 +218,13 @@ func can_jump() -> bool:
 func perform_jump() -> void:
 	velocity.y = jump_velocity
 	jumps_used += 1
+	jumps_changed.emit(max_jumps - jumps_used)
 
 
 ## Reset the double-jump budget. Called by AirState the moment we land.
 func reset_jumps() -> void:
 	jumps_used = 0
+	jumps_changed.emit(max_jumps)
 
 
 ## ============================================================================
